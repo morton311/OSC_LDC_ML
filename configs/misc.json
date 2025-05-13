@@ -1,0 +1,9 @@
+{
+    "overwrite_latent": false,
+    "overwrite_latent_eval": false,
+    "overwrite_true_stats": false,
+    "seed": 42,
+    "animate_flag": false,
+    "visualize_flow_flag": false,
+    "ram_available": 100
+}

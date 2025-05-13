@@ -1,0 +1,35 @@
+# load configs
+config_path = 'configs/'
+with open(config_path + 'data.json', "r") as f:
+    data_cfg = json.load(f)
+with open(config_path + 'transformer.json', "r") as f:
+    transformer_cfg = json.load(f)
+with open(config_path + 'train.json', "r") as f:
+    train_cfg = json.load(f)
+with open(config_path + 'misc.json', "r") as f:
+    misc_cfg = json.load(f)
+
+# Access parameters from the JSON file
+data_name = data_cfg["data_name"]
+patch_size = data_cfg["patch_size"]
+num_modes = data_cfg["num_modes"]
+time_lag = transformer_cfg["time_lag"]
+d_model = transformer_cfg["d_model"]
+nhead = transformer_cfg["nhead"]
+num_layers = transformer_cfg["num_layers"]
+lr = train_cfg["lr"]
+num_epochs = train_cfg["num_epochs"]
+patience = train_cfg["patience"]
+train_ahead = train_cfg["train_ahead"]
+num_train = train_cfg["num_train"]
+num_test = train_cfg["num_test"]
+test_split = train_cfg["test_split"]
+val_split = train_cfg["val_split"]
+batch_size = train_cfg["batch_size"]
+overwrite_latent = misc_cfg["overwrite_latent"]
+overwrite_latent_eval = misc_cfg["overwrite_latent_eval"]
+overwrite_true_stats = misc_cfg["overwrite_true_stats"]
+seed = misc_cfg["seed"]
+animate_flag = misc_cfg["animate_flag"]
+visualize_flow_flag = misc_cfg["visualize_flow_flag"]
+ram_available = misc_cfg["ram_available"]

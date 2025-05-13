@@ -1,0 +1,27 @@
+# Exclude data, latent, figs, anim, and models directories
+data/
+latent/
+figs/
+anim/
+models/
+
+# Exclude Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Exclude Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Exclude logs
+*.log
+
+# Exclude temporary files
+*.tmp
+*.swp
+*.bak
+*.~*
+
+# Exclude environment files
+.env
+*.env
