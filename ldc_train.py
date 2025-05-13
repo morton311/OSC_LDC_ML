@@ -19,8 +19,8 @@ from torchsummary import summary
 from tqdm import tqdm
 from datetime import datetime
 
-from lib.dls_funcs import gfem_2d, gfem_recon  # Explicitly import required functions
-from lib.analysis_funcs import * # Imports analysis functions
+from OSC_LDC_ML.lib.dls import gfem_2d, gfem_recon  # Explicitly import required functions
+from OSC_LDC_ML.lib.eval import * # Imports analysis functions
 from lib.transformer import TransformerEncoderModel, make_Sequence, train_model
 
 print('Libraries loaded.')

@@ -2,7 +2,7 @@ import numpy as np
 import time
 import h5py
 from tqdm import tqdm
-from dls_funcs import *
+from OSC_LDC_ML.lib.dls import *
 
 def TKE_long(data_path: str, field_name: str, axis_order: list, snap_start: int = 0, snap_end: int = None) -> np.ndarray:
     """
