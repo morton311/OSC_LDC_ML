@@ -1,0 +1,156 @@
+/tmp/slurmtmp.770509/ldc_train.py:99: DeprecationWarning: numpy.core.numeric is deprecated and has been renamed to numpy._core.numeric. The numpy._core namespace contains private NumPy internals and its use is discouraged, as NumPy internals can change without warning in any release. In practice, most real-world usage of numpy.core is to access functionality in the public NumPy API. If that is the case, use the public NumPy API. If not, you are using NumPy internals. If you would still like to access an internal attribute, use numpy._core.numeric._frombuffer.
+  latent_config = pickle.load(f)
+Loading libraries...
+Using device: cuda
+Libraries loaded.
+data
+  data_name: ldc_30k_6ktrain
+  patch_size: 19
+  num_modes: 5
+transformer
+  time_lag: 64
+  d_model: 512
+  nhead: 4
+  num_layers: 4
+train
+  lr: 0.001
+  num_epochs: 1000
+  patience: 25
+  train_ahead: 5
+  num_train: 6000
+  num_test: 600
+  test_split: 0.1
+  val_split: 0.2
+  batch_size: 256
+misc
+  overwrite_latent: False
+  overwrite_latent_eval: False
+  overwrite_true_stats: False
+  seed: 42
+  animate_flag: False
+  visualize_flow_flag: False
+  ram_available: 100
+num_train: 6000
+num_test: 600
+Max coeffs: 17569513332
+Bytes of Max coeffs: 70278053328
+GB of Max coeffs: 70.278053328
+Latent space shape: (60000, 19494)
+Train data shape: (6600, 19494)
+(6600, 38988)
+(6600, 38988)
+9.763042 -8.633313
+Normalization parameters saved to models/ldc_30k_6ktrain/m5p19/normalization_params.npz
+Training set is shape: (6000, 38988)
+Testing set is shape: (600, 38988)
+  0%|          | 0/531 [00:00<?, ?it/s] 14%|█▍        | 76/531 [00:00<00:00, 757.22it/s] 29%|██▊       | 152/531 [00:00<00:00, 388.73it/s] 46%|████▌     | 243/531 [00:00<00:00, 544.76it/s] 59%|█████▊    | 311/531 [00:00<00:00, 521.47it/s] 70%|██████▉   | 371/531 [00:00<00:00, 430.61it/s] 87%|████████▋ | 462/531 [00:00<00:00, 543.76it/s] 99%|█████████▉| 526/531 [00:01<00:00, 545.60it/s]100%|██████████| 531/531 [00:01<00:00, 515.71it/s]
+  0%|          | 0/5931 [00:00<?, ?it/s]  1%|          | 66/5931 [00:00<00:09, 646.16it/s]  2%|▏         | 131/5931 [00:00<00:14, 410.76it/s]  4%|▎         | 221/5931 [00:00<00:09, 579.53it/s]  5%|▍         | 294/5931 [00:00<00:09, 620.26it/s]  6%|▌         | 362/5931 [00:00<00:11, 481.31it/s]  8%|▊         | 451/5931 [00:00<00:09, 584.57it/s]  9%|▉         | 525/5931 [00:00<00:08, 619.92it/s] 10%|█         | 594/5931 [00:01<00:10, 493.60it/s] 12%|█▏        | 683/5931 [00:01<00:08, 584.66it/s] 13%|█▎        | 760/5931 [00:01<00:08, 621.20it/s] 14%|█▍        | 829/5931 [00:01<00:10, 505.06it/s] 15%|█▌        | 915/5931 [00:01<00:08, 584.61it/s] 17%|█▋        | 1000/5931 [00:01<00:07, 642.85it/s] 18%|█▊        | 1071/5931 [00:01<00:09, 517.10it/s] 20%|█▉        | 1157/5931 [00:02<00:08, 592.63it/s] 21%|██        | 1233/5931 [00:02<00:07, 624.99it/s] 22%|██▏       | 1302/5931 [00:02<00:08, 518.11it/s] 23%|██▎       | 1387/5931 [00:02<00:07, 592.63it/s] 25%|██▍       | 1464/5931 [00:02<00:07, 635.84it/s] 26%|██▌       | 1534/5931 [00:02<00:08, 518.40it/s] 27%|██▋       | 1621/5931 [00:02<00:07, 597.31it/s] 29%|██▊       | 1699/5931 [00:02<00:06, 640.19it/s] 30%|██▉       | 1770/5931 [00:03<00:07, 522.01it/s] 31%|███▏      | 1856/5931 [00:03<00:06, 597.56it/s] 33%|███▎      | 1935/5931 [00:03<00:06, 632.08it/s] 34%|███▍      | 2005/5931 [00:03<00:06, 599.18it/s] 35%|███▍      | 2070/5931 [00:03<00:07, 536.01it/s] 36%|███▌      | 2128/5931 [00:03<00:08, 472.05it/s] 37%|███▋      | 2179/5931 [00:03<00:08, 451.49it/s] 38%|███▊      | 2227/5931 [00:04<00:08, 438.31it/s] 38%|███▊      | 2273/5931 [00:04<00:08, 414.81it/s] 39%|███▉      | 2316/5931 [00:04<00:08, 401.77it/s] 40%|███▉      | 2362/5931 [00:04<00:08, 416.09it/s] 41%|████      | 2419/5931 [00:04<00:07, 455.85it/s] 42%|████▏     | 2484/5931 [00:04<00:06, 507.74it/s] 43%|████▎     | 2536/5931 [00:04<00:06, 497.80it/s] 44%|████▎     | 2589/5931 [00:04<00:06, 505.75it/s] 45%|████▍     | 2641/5931 [00:04<00:06, 492.32it/s] 45%|████▌     | 2695/5931 [00:05<00:06, 505.77it/s] 46%|████▋     | 2752/5931 [00:05<00:06, 523.12it/s] 48%|████▊     | 2821/5931 [00:05<00:05, 570.71it/s] 49%|████▊     | 2886/5931 [00:05<00:05, 591.51it/s] 50%|████▉     | 2964/5931 [00:05<00:04, 646.88it/s] 51%|█████     | 3029/5931 [00:05<00:05, 555.99it/s] 52%|█████▏    | 3088/5931 [00:05<00:05, 517.72it/s] 53%|█████▎    | 3142/5931 [00:05<00:05, 466.34it/s] 54%|█████▍    | 3191/5931 [00:06<00:06, 437.70it/s] 55%|█████▍    | 3237/5931 [00:06<00:06, 414.72it/s] 55%|█████▌    | 3280/5931 [00:06<00:06, 400.51it/s] 56%|█████▌    | 3321/5931 [00:06<00:06, 395.89it/s] 57%|█████▋    | 3361/5931 [00:06<00:06, 393.34it/s] 57%|█████▋    | 3401/5931 [00:06<00:06, 388.06it/s] 58%|█████▊    | 3451/5931 [00:06<00:05, 418.34it/s] 59%|█████▉    | 3505/5931 [00:06<00:05, 451.91it/s] 60%|█████▉    | 3555/5931 [00:06<00:05, 463.43it/s] 61%|██████    | 3610/5931 [00:06<00:04, 487.69it/s] 62%|██████▏   | 3661/5931 [00:07<00:04, 492.10it/s] 63%|██████▎   | 3716/5931 [00:07<00:04, 508.46it/s] 64%|██████▎   | 3772/5931 [00:07<00:04, 523.59it/s] 65%|██████▍   | 3830/5931 [00:07<00:03, 539.25it/s] 66%|██████▌   | 3885/5931 [00:07<00:03, 538.19it/s] 66%|██████▋   | 3943/5931 [00:07<00:03, 550.24it/s] 67%|██████▋   | 3999/5931 [00:07<00:03, 546.03it/s] 69%|██████▊   | 4070/5931 [00:07<00:03, 593.45it/s] 70%|██████▉   | 4147/5931 [00:07<00:02, 644.25it/s] 71%|███████   | 4218/5931 [00:07<00:02, 662.44it/s] 72%|███████▏  | 4285/5931 [00:08<00:02, 620.49it/s] 73%|███████▎  | 4348/5931 [00:08<00:02, 570.31it/s] 74%|███████▍  | 4407/5931 [00:08<00:02, 554.74it/s] 75%|███████▌  | 4464/5931 [00:08<00:02, 537.81it/s] 76%|███████▋  | 4526/5931 [00:08<00:02, 558.68it/s] 77%|███████▋  | 4583/5931 [00:08<00:02, 462.77it/s] 79%|███████▊  | 4667/5931 [00:08<00:02, 554.80it/s] 80%|███████▉  | 4736/5931 [00:08<00:02, 589.22it/s] 81%|████████▏ | 4828/5931 [00:09<00:01, 678.61it/s] 83%|████████▎ | 4926/5931 [00:09<00:01, 761.67it/s] 84%|████████▍ | 5006/5931 [00:09<00:01, 734.84it/s] 86%|████████▌ | 5082/5931 [00:09<00:01, 685.95it/s] 87%|████████▋ | 5153/5931 [00:09<00:01, 662.27it/s] 88%|████████▊ | 5221/5931 [00:09<00:01, 638.39it/s] 89%|████████▉ | 5290/5931 [00:09<00:00, 649.90it/s] 90%|█████████ | 5364/5931 [00:09<00:00, 673.20it/s] 92%|█████████▏| 5433/5931 [00:09<00:00, 658.54it/s] 93%|█████████▎| 5500/5931 [00:10<00:00, 652.87it/s] 94%|█████████▍| 5596/5931 [00:10<00:00, 740.14it/s] 96%|█████████▌| 5671/5931 [00:10<00:00, 717.16it/s] 97%|█████████▋| 5744/5931 [00:10<00:00, 706.65it/s] 98%|█████████▊| 5841/5931 [00:10<00:00, 781.25it/s]100%|█████████▉| 5920/5931 [00:10<00:00, 726.52it/s]100%|██████████| 5931/5931 [00:10<00:00, 559.17it/s]
+X_train shape: (5931, 64, 38988), Y_train shape: (5931, 5, 38988)
+X_test shape: (531, 64, 38988), Y_test shape: (531, 5, 38988)
+Epoch [1/1000], Train Loss: 0.8582, Test Loss: 0.8647
+Epoch [2/1000], Train Loss: 0.6142, Test Loss: 0.6813
+Best model saved at epoch 2 with test loss: 0.6813
+Epoch [3/1000], Train Loss: 0.4752, Test Loss: 0.6181
+Best model saved at epoch 3 with test loss: 0.6181
+Epoch [4/1000], Train Loss: 0.3698, Test Loss: 0.6050
+Best model saved at epoch 4 with test loss: 0.6050
+Epoch [5/1000], Train Loss: 0.3059, Test Loss: 0.5668
+Best model saved at epoch 5 with test loss: 0.5668
+Epoch [6/1000], Train Loss: 0.2433, Test Loss: 0.5403
+Best model saved at epoch 6 with test loss: 0.5403
+Epoch [7/1000], Train Loss: 0.1949, Test Loss: 0.5386
+Best model saved at epoch 7 with test loss: 0.5386
+Epoch [8/1000], Train Loss: 0.1620, Test Loss: 0.5406
+Epoch [9/1000], Train Loss: 0.1389, Test Loss: 0.5237
+Best model saved at epoch 9 with test loss: 0.5237
+Epoch [10/1000], Train Loss: 0.1223, Test Loss: 0.5364
+Epoch [11/1000], Train Loss: 0.1079, Test Loss: 0.5363
+Epoch [12/1000], Train Loss: 0.0968, Test Loss: 0.5170
+Best model saved at epoch 12 with test loss: 0.5170
+Epoch [13/1000], Train Loss: 0.0887, Test Loss: 0.5136
+Best model saved at epoch 13 with test loss: 0.5136
+Epoch [14/1000], Train Loss: 0.0813, Test Loss: 0.5036
+Best model saved at epoch 14 with test loss: 0.5036
+Epoch [15/1000], Train Loss: 0.0748, Test Loss: 0.5097
+Epoch [16/1000], Train Loss: 0.0692, Test Loss: 0.4975
+Best model saved at epoch 16 with test loss: 0.4975
+Epoch [17/1000], Train Loss: 0.0655, Test Loss: 0.4877
+Best model saved at epoch 17 with test loss: 0.4877
+Epoch [18/1000], Train Loss: 0.0616, Test Loss: 0.4909
+Epoch [19/1000], Train Loss: 0.0592, Test Loss: 0.4837
+Best model saved at epoch 19 with test loss: 0.4837
+Epoch [20/1000], Train Loss: 0.0574, Test Loss: 0.5012
+Epoch [21/1000], Train Loss: 0.0578, Test Loss: 0.5081
+Epoch [22/1000], Train Loss: 0.0548, Test Loss: 0.5210
+Epoch [23/1000], Train Loss: 0.0510, Test Loss: 0.5070
+Epoch [24/1000], Train Loss: 0.0486, Test Loss: 0.4886
+Epoch [25/1000], Train Loss: 0.0453, Test Loss: 0.4838
+Epoch [26/1000], Train Loss: 0.0430, Test Loss: 0.4888
+Epoch [27/1000], Train Loss: 0.0412, Test Loss: 0.4862
+Epoch [28/1000], Train Loss: 0.0398, Test Loss: 0.4778
+Best model saved at epoch 28 with test loss: 0.4778
+Epoch [29/1000], Train Loss: 0.0394, Test Loss: 0.4839
+Epoch [30/1000], Train Loss: 0.0384, Test Loss: 0.4652
+Best model saved at epoch 30 with test loss: 0.4652
+Epoch [31/1000], Train Loss: 0.0355, Test Loss: 0.4641
+Best model saved at epoch 31 with test loss: 0.4641
+Epoch [32/1000], Train Loss: 0.0337, Test Loss: 0.4580
+Best model saved at epoch 32 with test loss: 0.4580
+Epoch [33/1000], Train Loss: 0.0318, Test Loss: 0.4531
+Best model saved at epoch 33 with test loss: 0.4531
+Epoch [34/1000], Train Loss: 0.0312, Test Loss: 0.4481
+Best model saved at epoch 34 with test loss: 0.4481
+Epoch [35/1000], Train Loss: 0.0309, Test Loss: 0.4415
+Best model saved at epoch 35 with test loss: 0.4415
+Epoch [36/1000], Train Loss: 0.0299, Test Loss: 0.4293
+Best model saved at epoch 36 with test loss: 0.4293
+Epoch [37/1000], Train Loss: 0.0285, Test Loss: 0.4420
+Epoch [38/1000], Train Loss: 0.0288, Test Loss: 0.4375
+Epoch [39/1000], Train Loss: 0.0277, Test Loss: 0.4396
+Epoch [40/1000], Train Loss: 0.0270, Test Loss: 0.4375
+Epoch [41/1000], Train Loss: 0.0255, Test Loss: 0.4316
+Epoch [42/1000], Train Loss: 0.0264, Test Loss: 0.4470
+Epoch [43/1000], Train Loss: 0.0264, Test Loss: 0.4462
+Epoch [44/1000], Train Loss: 0.0255, Test Loss: 0.4374
+Epoch [45/1000], Train Loss: 0.0241, Test Loss: 0.4329
+Epoch [46/1000], Train Loss: 0.0227, Test Loss: 0.4234
+Best model saved at epoch 46 with test loss: 0.4234
+Epoch [47/1000], Train Loss: 0.0214, Test Loss: 0.4205
+Best model saved at epoch 47 with test loss: 0.4205
+Epoch [48/1000], Train Loss: 0.0213, Test Loss: 0.4187
+Best model saved at epoch 48 with test loss: 0.4187
+Epoch [49/1000], Train Loss: 0.0213, Test Loss: 0.4208
+Epoch [50/1000], Train Loss: 0.0208, Test Loss: 0.4270
+Epoch [51/1000], Train Loss: 0.0198, Test Loss: 0.4209
+Epoch [52/1000], Train Loss: 0.0194, Test Loss: 0.4123
+Best model saved at epoch 52 with test loss: 0.4123
+Epoch [53/1000], Train Loss: 0.0200, Test Loss: 0.4204
+Epoch [54/1000], Train Loss: 0.0196, Test Loss: 0.4322
+Epoch [55/1000], Train Loss: 0.0198, Test Loss: 0.4249
+Epoch [56/1000], Train Loss: 0.0200, Test Loss: 0.4496
+Epoch [57/1000], Train Loss: 0.0204, Test Loss: 0.4316
+Epoch [58/1000], Train Loss: 0.0192, Test Loss: 0.4361
+Epoch [59/1000], Train Loss: 0.0191, Test Loss: 0.4452
+Epoch [60/1000], Train Loss: 0.0197, Test Loss: 0.4723
+Epoch [61/1000], Train Loss: 0.0251, Test Loss: 0.5250
+Epoch [62/1000], Train Loss: 0.0321, Test Loss: 0.5884
+Epoch [63/1000], Train Loss: 0.0405, Test Loss: 0.5749
+Epoch [64/1000], Train Loss: 0.0373, Test Loss: 0.5736
+Epoch [65/1000], Train Loss: 0.0321, Test Loss: 0.6034
+Epoch [66/1000], Train Loss: 0.0277, Test Loss: 0.6120
+Epoch [67/1000], Train Loss: 0.0238, Test Loss: 0.5820
+Epoch [68/1000], Train Loss: 0.0232, Test Loss: 0.5717
+Epoch [69/1000], Train Loss: 0.0202, Test Loss: 0.5395
+Epoch [70/1000], Train Loss: 0.0186, Test Loss: 0.5275
+Epoch [71/1000], Train Loss: 0.0169, Test Loss: 0.5317
+Epoch [72/1000], Train Loss: 0.0153, Test Loss: 0.5283
+Epoch [73/1000], Train Loss: 0.0149, Test Loss: 0.5313
+Epoch [74/1000], Train Loss: 0.0141, Test Loss: 0.5037
+Epoch [75/1000], Train Loss: 0.0137, Test Loss: 0.4949
+Epoch [76/1000], Train Loss: 0.0135, Test Loss: 0.5229
+Epoch [77/1000], Train Loss: 0.0138, Test Loss: 0.5280
+Early stopping at epoch 77
+Time taken for training:  5255.88859128952
+Time taken per epoch:  5.25588859128952
+Final model saved to models/ldc_30k_6ktrain/m5p19/model_20250514_115201.pth
+Number of parameters in the model: 52572748

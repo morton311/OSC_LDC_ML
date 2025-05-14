@@ -2,7 +2,7 @@
 # nohup /home/cmorton/Desktop/beta-Variational-autoencoders-and-transformers-for-reduced-order-modelling-of-fluid-flows/.venv/bin/python3 -u /home/HDD/cmorton/OSC_LDC_ML/ldc_train.py > train.log &
 
 print('Loading libraries...')
-import h5py
+import h5py 
 import pickle
 import os
 import gc
@@ -16,14 +16,12 @@ from functools import partial
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt # matplotlib not found
 import time
-from torchsummary import summary
+# from torchsummary import summary
 from tqdm import tqdm
 from datetime import datetime
 
-from lib.dls import gfem_2d, gfem_recon  # Explicitly import required functions
-from lib.dls_funcs import gfem_2d, gfem_recon  # Explicitly import required functions
 from lib.eval import * # Imports analysis functions
 from lib.transformer import TransformerEncoderModel, make_Sequence, train_model, normalize_data, denormalize_data
 
@@ -188,17 +186,21 @@ results = train_model(
     data_name=data_name
 )
 
-# Plot the training and test losses
-plt.figure(figsize=(4, 2.5))
-plt.plot(results["train_losses"], label='Training Loss')
-plt.plot(results["test_losses"], label='Test Loss')
-plt.title('Training Curve')
-plt.xlabel('Epoch')
-plt.ylabel('MSE Loss')
-plt.legend()
-plt.grid()
-plt.yscale('log')
-plt.show()
+# Save training and test losses to file
+with open(os.path.join(model_dir, 'results.pkl'), 'wb') as f:
+    pickle.dump(results, f)
+
+# # Plot the training and test losses
+# plt.figure(figsize=(4, 2.5))
+# plt.plot(results["train_losses"], label='Training Loss')
+# plt.plot(results["test_losses"], label='Test Loss')
+# plt.title('Training Curve')
+# plt.xlabel('Epoch')
+# plt.ylabel('MSE Loss')
+# plt.legend()
+# plt.grid()
+# plt.yscale('log')
+# plt.show()
 # print number of parameters
 num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"Number of parameters in the model: {num_params}")
