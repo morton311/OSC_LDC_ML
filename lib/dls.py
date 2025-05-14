@@ -992,6 +992,8 @@ def gfem_recon_long(rec_path, config, dof_u=None, dof_v=None, batch_size=100):
     dof_elem = config.dof_elem  # DOFs/element
 
     with h5py.File(rec_path, 'w') as rec_file:
+        if 'Q_rec' in rec_file.keys():
+            del rec_file['Q_rec']
         rec_file.create_dataset('Q_rec', (2, config.nx_t, config.ny_t, dof_u.shape[-1]), dtype='float32')
 
         for id in tqdm(range(num_batches)):

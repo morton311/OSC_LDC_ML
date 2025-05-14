@@ -1,5 +1,7 @@
 # nohup /home/cmorton/Desktop/beta-Variational-autoencoders-and-transformers-for-reduced-order-modelling-of-fluid-flows/.venv/bin/python3 -u /home/HDD/cmorton/OSC_LDC_ML/ldc_predict.py > pred.log &
 
+model_name = 'model_20250514_115201'
+
 print('Loading libraries...')
 import h5py
 import pickle
@@ -107,7 +109,6 @@ input_dim = input.shape[1]
 
 ## Load model
 print('Loading model...')
-model_name = f'{data_name}_best_model'
 model_path = f'{model_dir}/{model_name}.pth'
 model = TransformerEncoderModel(
     time_lag=time_lag,
