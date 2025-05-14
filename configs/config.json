@@ -1,0 +1,33 @@
+{
+    "data": {
+        "data_name": "ldc_30k_6ktrain",
+        "patch_size": 19,
+        "num_modes": 5
+    },
+    "transformer": {
+        "time_lag": 64,
+        "d_model": 512,
+        "nhead": 4,
+        "num_layers": 4
+    },
+    "train": {
+        "lr": 0.001,
+        "num_epochs": 1000,
+        "patience": 25,
+        "train_ahead": 5,
+        "num_train": 6000,
+        "num_test": 600,
+        "test_split": 0.1,
+        "val_split": 0.2,
+        "batch_size": 256
+    },
+    "misc": {
+        "overwrite_latent": false,
+        "overwrite_latent_eval": false,
+        "overwrite_true_stats": false,
+        "seed": 42,
+        "animate_flag": false,
+        "visualize_flow_flag": false,
+        "ram_available": 100
+    }
+}

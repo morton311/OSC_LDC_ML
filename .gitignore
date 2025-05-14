@@ -4,6 +4,7 @@ latent/
 figs/
 anim/
 models/
+predictions/
 
 # Exclude Python cache files
 __pycache__/
@@ -25,3 +26,4 @@ __pycache__/
 # Exclude environment files
 .env
 *.env
+.ldc_venv/

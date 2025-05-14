@@ -1,6 +1,0 @@
-{
-    "time_lag": 64,
-    "d_model": 512,
-    "nhead": 4,
-    "num_layers": 4
-}

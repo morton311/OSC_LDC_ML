@@ -975,83 +975,39 @@ class dls_long_Config:
         self.compression_ratio = self.num_vars*self.num_snaps*self.nx*self.ny / (self.num_vars*self.num_snaps*self.dof_node + self.num_vars * num_modes * self.patch_size**2 )
 
 
-def gfem_recon_long(rec_path, config, dof_u=None, dof_v=None, batch_size=100):
-    if dof_u.dtype == str:
-        dof_path = dof_u
-        with h5py.File(dof_path, 'r') as f:
-            dof_u = f['dof_u'][:].T
-            dof_v = f['dof_v'][:].T
-    
-    num_batches = dof_u.shape[1] // batch_size
+def gfem_recon_long(dof_path, config):
+    with h5py.File(dof_path, 'r') as f:
+        dof_u = f['dof_u'][:]
+        dof_v = f['dof_v'][:]
 
+        IJK = np.array([[0, 1], [1, 1], [1, 0], [0, 0]])
 
-    IJK = np.array([[0, 1], [1, 1], [1, 0], [0, 0]])
+        nskip = config.nskip
+        dof_node = config.dof_node # DOFs/node
+        dof_elem = config.dof_elem # DOFs/element
 
-    nskip = config.nskip
-    dof_node = config.dof_node  # DOFs/node
-    dof_elem = config.dof_elem  # DOFs/element
+        Q_rec_u = np.zeros((config.nx_t, config.ny_t, dof_u.shape[-1]))
+        Q_rec_v = np.zeros((config.nx_t, config.ny_t, dof_v.shape[-1]))
 
-    with h5py.File(rec_path, 'w') as rec_file:
-        rec_file.create_dataset('Q_rec', (2, config.nx_t, config.ny_t, dof_u.shape[-1]), dtype='float32')
+        for i in range(config.nx_g-1):
+            for j in range(config.ny_g-1):
+                lltogl = np.zeros(dof_elem, dtype=int)
+                for lindx in range(4):
+                    indx_dof_start = ((i+IJK[lindx, 0])*config.ny_g + (j+IJK[lindx, 1]))*dof_node
+                    indx_dof_end = indx_dof_start + dof_node
 
-        for id in tqdm(range(num_batches)):
-            snap_start = id * batch_size
-            snap_end = (id + 1) * batch_size
+                    lltogl[lindx*dof_node: (lindx+1)*dof_node] = np.arange(indx_dof_start, indx_dof_end)
+                # print(lltogl)
+                for id in range(dof_u.shape[-1]):
+                    Q_rec_local_u_vec = config.modemat_local_u @ dof_u[lltogl, id]
+                    Q_rec_local_v_vec = config.modemat_local_v @ dof_v[lltogl, id]
+                    
+                    Q_rec_local_u = Q_rec_local_u_vec.reshape((nskip+1, nskip+1), order='F')
+                    Q_rec_local_v = Q_rec_local_v_vec.reshape((nskip+1, nskip+1), order='F')
 
-            Q_rec_u = np.zeros((config.nx_t, config.ny_t, batch_size))
-            Q_rec_v = np.zeros((config.nx_t, config.ny_t, batch_size))
-
-            for i in range(config.nx_g - 1):
-                for j in range(config.ny_g - 1):
-                    lltogl = np.zeros(dof_elem, dtype=int)
-                    for lindx in range(4):
-                        indx_dof_start = ((i + IJK[lindx, 0]) * config.ny_g + (j + IJK[lindx, 1])) * dof_node
-                        indx_dof_end = indx_dof_start + dof_node
-
-                        lltogl[lindx * dof_node: (lindx + 1) * dof_node] = np.arange(indx_dof_start, indx_dof_end)
-
-                    Q_rec_local_u_vec = config.modemat_local_u @ dof_u[lltogl, snap_start:snap_end]
-                    Q_rec_local_v_vec = config.modemat_local_v @ dof_v[lltogl, snap_start:snap_end]
-
-                    Q_rec_local_u = Q_rec_local_u_vec.reshape((nskip + 1, nskip + 1, batch_size), order='F')
-                    Q_rec_local_v = Q_rec_local_v_vec.reshape((nskip + 1, nskip + 1, batch_size), order='F')
-
-                    Q_rec_u[config.sample_x[i]:config.sample_x[i + 1] + 1, config.sample_y[j]:config.sample_y[j + 1] + 1] = Q_rec_local_u
-                    Q_rec_v[config.sample_x[i]:config.sample_x[i + 1] + 1, config.sample_y[j]:config.sample_y[j + 1] + 1] = Q_rec_local_v
-
-            rec_file['Q_rec'][0, :, :, snap_start:snap_end] = Q_rec_u
-            rec_file['Q_rec'][1, :, :, snap_start:snap_end] = Q_rec_v
-
-def gfem_recon_batched(dof_u, dof_v, config, batch_size = 100):
-
-    IJK = np.array([[0, 1], [1, 1], [1, 0], [0, 0]])
-
-    nskip = config.nskip
-    dof_node = config.dof_node # DOFs/node
-    dof_elem = config.dof_elem # DOFs/element
-
-    Q_rec_u = np.zeros((config.nx_t, config.ny_t, dof_u.shape[-1]))
-    Q_rec_v = np.zeros((config.nx_t, config.ny_t, dof_v.shape[-1]))
-
-    for i in range(config.nx_g-1):
-        for j in range(config.ny_g-1):
-            lltogl = np.zeros(dof_elem, dtype=int)
-            for lindx in range(4):
-                indx_dof_start = ((i+IJK[lindx, 0])*config.ny_g + (j+IJK[lindx, 1]))*dof_node
-                indx_dof_end = indx_dof_start + dof_node
-
-                lltogl[lindx*dof_node: (lindx+1)*dof_node] = np.arange(indx_dof_start, indx_dof_end)
-            # print(lltogl)
-            for id in range(dof_u.shape[-1]):
-                Q_rec_local_u_vec = config.modemat_local_u @ dof_u[lltogl, id]
-                Q_rec_local_v_vec = config.modemat_local_v @ dof_v[lltogl, id]
-                
-                Q_rec_local_u = Q_rec_local_u_vec.reshape((nskip+1, nskip+1), order='F')
-                Q_rec_local_v = Q_rec_local_v_vec.reshape((nskip+1, nskip+1), order='F')
-
-                Q_rec_u[config.sample_x[i]:config.sample_x[i+1]+1, config.sample_y[j]:config.sample_y[j+1]+1, id] = Q_rec_local_u
-                Q_rec_v[config.sample_x[i]:config.sample_x[i+1]+1, config.sample_y[j]:config.sample_y[j+1]+1, id] = Q_rec_local_v
-    Q_rec = np.zeros((2, config.nx_t, config.ny_t, dof_u.shape[-1]))
-    Q_rec[0, :, :, :] = Q_rec_u
-    Q_rec[1, :, :, :] = Q_rec_v
+                    Q_rec_u[config.sample_x[i]:config.sample_x[i+1]+1, config.sample_y[j]:config.sample_y[j+1]+1, id] = Q_rec_local_u
+                    Q_rec_v[config.sample_x[i]:config.sample_x[i+1]+1, config.sample_y[j]:config.sample_y[j+1]+1, id] = Q_rec_local_v
+        Q_rec = np.zeros((2, config.nx_t, config.ny_t, dof_u.shape[-1]))
+        Q_rec[0, :, :, :] = Q_rec_u
+        Q_rec[1, :, :, :] = Q_rec_v
     return Q_rec

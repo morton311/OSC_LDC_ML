@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import numpy as np
 import time
+from tqdm import tqdm
 
 
 ## ==================================== Positional Encoding ======================================
@@ -226,3 +227,55 @@ def train_model(model, train_loader, test_loader, criterion, optimizer, num_epoc
     print(f"Final model saved to {model_save_path}")
 
     return {"train_losses": losses, "test_losses": test_losses}
+
+
+## ====================================== Normalization ==========================================
+def normalize_data(data, mean, std):
+    return (data - mean) / std
+def denormalize_data(data, mean, std):
+    return (data * std) + mean
+
+## ====================================== Model Prediction ==========================================
+# long time history prediction
+def predict(model, initial_input, time_lag, num_predictions, device):
+    """
+    Predict long-term future values using the model.
+
+    Args:
+        model: The trained model.
+        initial_input: The initial input sequence.
+        time_lag: The length of the input sequence.
+        num_predictions: The number of future values to predict.
+
+    Returns:
+        predictions: The predicted future values.
+    """
+
+    if initial_input.shape[0] != 1:
+        initial_input = initial_input[np.newaxis, ...]
+    if initial_input.shape[1] != time_lag:
+        print(f"Initial input shape {initial_input.shape[1]} does not match time lag {time_lag}, input will be trucated.")
+        initial_input = initial_input[:, :time_lag, :]
+    current_input = torch.tensor(initial_input, dtype=torch.float32).to(device)
+
+    model.eval()
+    predictions = []
+
+    start_time = time.time()
+    with torch.no_grad():
+        for _ in tqdm(range(num_predictions)):
+            output = model(current_input)
+            # print('Output shape: ', output[np.newaxis,:,:].shape)
+            predictions.append(output.to('cpu').numpy())  # Ensure tensor is moved to CPU before converting to NumPy
+            # Update the input for the next prediction
+            current_input = torch.cat((current_input[:,1:, :], output[np.newaxis,:,:]), dim=1)
+            # print('Current input shape: ', current_input.shape)
+
+    end_time = time.time()
+    print('Time taken for long-term prediction: ', end_time - start_time)
+    print('Time taken per prediction: ', (end_time - start_time)/num_predictions)
+    predictions = np.array(predictions)  # Convert list to NumPy array
+    predictions = predictions.reshape(num_predictions, -1)  # Reshape to (num_predictions, input_dim)
+    predictions = np.vstack([initial_input[0,:,:], predictions])  # Concatenate 
+    return predictions
+

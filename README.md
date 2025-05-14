@@ -2,7 +2,7 @@
 
 ## Directory Structure
 
-Upon running a script, the entire directory structure will be inititalized
+Upon running a script, the entire directory structure will be initialized
 
 ```
 OSC_LDC_ML/
